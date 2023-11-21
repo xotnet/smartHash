@@ -1,5 +1,5 @@
 # smartHash
-simple hash lib on C++. You can use this library if you don't want to use a heavier library
+simple hash lib on C++. You can use this library if you don't want to use a heavier library (Build weight ~40 kB)
 
 Example usage (you must to put shash return to std::string)
 ```
