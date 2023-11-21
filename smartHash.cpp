@@ -1,9 +1,10 @@
 #include <iostream>
 #include <cstring>
+#include <cstdint>
 const int hashLenght = 256;
 int symToInt(const char sym, const uint8_t textLenght, const uint8_t chunk, short int prewiosHash) {
         char symbolsList[] = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ,.!?/:#$%&*+~`()-[]{}:;_'$<>";
-        short int i = 0; while (i != strlen(symbolsList) || i < hashLenght) {
+        short int i = 0; while (i != sizeof(symbolsList) || i < hashLenght) {
                 if (sym == symbolsList[i]) {break;}
                 i++;
         }
@@ -22,10 +23,10 @@ std::string shash(const std::string text) {  // main
                 i++;
                 symInText++;
         }
-        i = 0; char finhash[hashLenght]; while (i < hashLenght) {
+        i = 0; char finhash[hashLenght]; while (i < hashLenght-1) {
                 finhash[i] = '0' + hash[i];
                 i++;
         }
-        std::string thash = finhash;
+		std::string thash = finhash;
         return thash;
 }
