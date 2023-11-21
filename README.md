@@ -4,7 +4,7 @@ simple hash lib on C++. You can use this library if you don't want to use a heav
 Example usage (you must to put shash return to std::string)
 ```
 #include <iostream>
-#include "smartHash.cpp"
+#include "smartHash.hpp"
 int main() {
     std::string pass;
     printf("phase for hashing: ");
