@@ -8,9 +8,9 @@ int symToInt(const char sym, const uint8_t textLenght, const uint8_t chunk, char
                 if (sym == symbolsList[i]) {break;}
                 i++;
         }
-        i = (((prewiosHash+chunk+17+textLenght)*i*73*textLenght+prewiosHash-1))-(i*chunk*prewiosHash)*(textLenght-chunk);
+        i = (prewiosHash+chunk+17+textLenght)*i*73*textLenght+prewiosHash-1-(i*chunk*prewiosHash)*(textLenght-chunk);
         if (hash[u-1] + hash[u-2] == hash[u-3] + hash[u-4]) {
-			i = i * textLenght+chunk;
+			i = (i*textLenght+chunk)*2;
 		}
         i = i % 10;
         return std::abs(i);
@@ -26,8 +26,8 @@ std::string shash(const std::string text) {  // main
                 i++;
                 symInText++;
         }
-		i = 0; uint16_t u = 1;
-        char finhash[hashLenght]; while (i != hashLenght) {
+		i = 0; uint16_t u = 0;
+        char finhash[hashLenght]; while (i < hashLenght-1) {
                 finhash[i] = '0' + hash[hashLenght-u-1];
                 i++;
 				u++;
