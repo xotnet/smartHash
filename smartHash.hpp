@@ -27,8 +27,8 @@ std::string shash(const std::string text) {  // main
                 symInText++;
         }
 		i = 0; uint16_t u = 1;
-        char finhash[hashLenght]; while (i != hashLenght-1) {
-                finhash[i] = '0' + hash[hashLenght-u];
+        char finhash[hashLenght]; while (i != hashLenght) {
+                finhash[i] = '0' + hash[hashLenght-u-1];
                 i++;
 				u++;
         }
