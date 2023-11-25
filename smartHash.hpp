@@ -2,35 +2,36 @@
 #include <cstring>
 #include <cstdint>
 uint16_t hashLenght = 256;
-int symToInt(const char sym, const uint8_t textLenght, const uint8_t chunk, char hash[], const char prewiosHash, int u) {
+int symToInt(const char sym, const uint8_t textLenght, const uint8_t chunk, const char prewiosHash, bool isRepeated) {
         char symbolsList[] = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ,.!?/:#$%&*+~`()-[]{}:;_'$<>";
-        short int i = 0; while (i != sizeof(symbolsList) || i < hashLenght) {
-                if (sym == symbolsList[i]) {break;}
-                i++;
+        int64_t i = 0; while (i != sizeof(symbolsList) || i < hashLenght) {
+			if (sym == symbolsList[i]) {break;}
+			i++;
         }
-        i = (prewiosHash+chunk+17+textLenght)*i*73*textLenght+prewiosHash-1-(i*chunk*prewiosHash)*(textLenght-chunk);
-        if (hash[u-1] + hash[u-2] == hash[u-3] + hash[u-4]) {
+        i = ((prewiosHash+chunk+17+textLenght)*i*73*textLenght+prewiosHash-chunk)*chunk-(i*chunk*prewiosHash)*(textLenght-chunk);
+        if (isRepeated) {
 			i = (i*textLenght+chunk)*2;
 		}
+		std::cout << std::to_string(chunk) << "\n";
         i = i % 10;
         return std::abs(i);
 }
 std::string shash(const std::string text) {  // main
-		hashLenght++;
+		hashLenght--;
         char hash[hashLenght];
-        uint8_t chunk = 0;
-        short int i = 0; int symInText = 0; while (i != hashLenght) {
-                if (sizeof(text) == symInText) {symInText = 0; chunk += 3; continue;}
-                else {
-					hash[i] = symToInt(text[symInText], sizeof(text), chunk, hash, hash[i-1], i);}
-                i++;
-                symInText++;
+        uint16_t chunk = 0;
+        uint16_t i = 0; int symInText = 0; while (i < hashLenght) {
+			if (text.length() == symInText) {symInText = 0; chunk++; continue;}
+			else {
+				bool isRepeated = false; if (hash[i-1] + hash[i-2] == hash[i-3] + hash[i-4]) {isRepeated = true;}
+				hash[i] = symToInt(text[symInText], sizeof(text), chunk, hash[i-1], isRepeated);}
+			i++;
+			symInText++;
         }
-		i = 0; uint16_t u = 0;
+		i = 0;
         char finhash[hashLenght]; while (i < hashLenght-1) {
-                finhash[i] = '0' + hash[hashLenght-u-1];
+                finhash[i] = hash[hashLenght-i] + '0';
                 i++;
-				u++;
         }
 		std::string thash = finhash;
         return thash; 
