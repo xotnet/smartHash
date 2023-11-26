@@ -9,7 +9,7 @@ Example usage (you must to put shash return to std::string)
 int main() {
     std::string pass;
     printf("phase for hashing: ");
-    std::cin >> pass;
+    std::getline(std::cin,pass);
     std::string hashedPhase = shash(pass);
     std::cout << hashedPhase << "\n";
     getch();
