@@ -3,7 +3,7 @@
 #include <cstdint>
 uint16_t hashLenght = 256;
 int symToInt(const char sym, const uint8_t textLenght, const uint8_t chunk, const char prewiosHash, bool isRepeated, const char hash[], uint16_t u) {
-        char symbolsList[] = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ,.!?/:#$%&*+~`()-[]{}:;_'$<>";
+        char symbolsList[] = " abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ,.!?/:#$%&*+~`()-[]{}:;_'$<>";
         int64_t i = 0; while (i != sizeof(symbolsList) || i < hashLenght) {
 			if (sym == symbolsList[i]) {break;}
 			i++;
