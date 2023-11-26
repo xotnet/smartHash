@@ -33,7 +33,6 @@ std::string shash(const std::string text) {  //  MAIN
 		i = 0;
         char finhash[hashLenght]; while (i < hashLenght-1) {
                 finhash[i] = hash[hashLenght-1-i] + '0';
-				std::cout << finhash[i] << "\n";
                 i++;
         }
 		finhash[hashLenght-1] = 0;
