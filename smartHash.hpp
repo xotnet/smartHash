@@ -19,22 +19,23 @@ int symToInt(const char sym, const uint8_t textLenght, const uint8_t chunk, cons
         return std::abs(i);
 }
 std::string shash(const std::string text) {  // main
-		hashLenght--;
+		hashLenght++;
         char hash[hashLenght];
         uint16_t chunk = 0;
         uint16_t i = 0; int symInText = 0; while (i < hashLenght) {
 			if (text.length() == symInText) {symInText = 0; chunk++; continue;}
 			else {
 				bool isRepeated = false; if (hash[i-1] + hash[i-2] == hash[i-3] + hash[i-4]) {isRepeated = true;}
-				hash[i] = symToInt(text[symInText], sizeof(text), chunk, hash[i-1], isRepeated, hash, i);}
+				hash[i] = symToInt(text[symInText], text.length(), chunk, hash[i-1], isRepeated, hash, i);}
 			i++;
 			symInText++;
         }
 		i = 0;
-        char finhash[hashLenght]; while (i < hashLenght) {
-                finhash[i] = hash[hashLenght-i] + '0';
+        char finhash[hashLenght]; while (i < hashLenght-1) {
+                finhash[i] = hash[hashLenght-1-i] + '0';
                 i++;
         }
+		finhash[hashLenght-1] = 0;
 		std::string thash = finhash;
         return thash; 
 }
