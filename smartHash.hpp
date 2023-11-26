@@ -11,14 +11,14 @@ int symToInt(const char sym, const uint8_t textLenght, const uint8_t chunk, cons
 		if (i%2==0) {i = i*24;} else {i = i*13;}
 		uint16_t prewSumOfHashChunk = 0;
 		if (hash[u-textLenght] != 0) {prewSumOfHashChunk = hash[u-textLenght] + hash[u-textLenght-1] + hash[u-textLenght-2] + hash[u-textLenght-3];}
-        i = ((i+1)*73+chunk*(textLenght-prewiosHash-chunk+prewSumOfHashChunk)) + (prewSumOfHashChunk+prewiosHash-chunk*2) + (i*chunk*prewiosHash*91) + chunk*4 - ((prewSumOfHashChunk-chunk-7)*prewiosHash) - (557/(prewiosHash+1));
+        i = (i+1)*73+chunk*(textLenght-prewiosHash-chunk-prewSumOfHashChunk) + ((prewSumOfHashChunk+prewiosHash+chunk)*2) + (i*chunk*prewiosHash*91) + chunk*4 - ((prewSumOfHashChunk-chunk-7)*prewiosHash) - (557/(prewiosHash+1+prewSumOfHashChunk));
         if (isRepeated) {
-			i = 0-(i*textLenght+prewiosHash+chunk/7)*3;
+			i = 0-(i*(textLenght+prewiosHash+chunk)/7)*3;
 		}
         i = i % 10;
         return std::abs(i);
 }
-std::string shash(const std::string text) {  // main
+std::string shash(const std::string text) {  //  MAIN
 		hashLenght++;
         char hash[hashLenght];
         uint16_t chunk = 0;
@@ -33,6 +33,7 @@ std::string shash(const std::string text) {  // main
 		i = 0;
         char finhash[hashLenght]; while (i < hashLenght-1) {
                 finhash[i] = hash[hashLenght-1-i] + '0';
+				std::cout << finhash[i] << "\n";
                 i++;
         }
 		finhash[hashLenght-1] = 0;
