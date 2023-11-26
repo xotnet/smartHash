@@ -13,7 +13,7 @@ int main() {
     std::string hashedPhase = shash(pass);
     std::cout << hashedPhase << "\n";
     getch();
-	return 0;
+    return 0;
 }
 ```
 
