@@ -17,9 +17,43 @@ int main() {
 }
 ```
 
-Return example: ```042906748568921390893210312026750935743449568720333950893019588270676163269119148967673390827718913912707611398248521363012632236988722568713782222005704893331132558902685233115767214922382139892016130104233297162112128709937585890872879739153985891322100``` (if you select 256 bit hash)
+Example file hashing
+```
+#include <iostream>
+#include <conio.h>
+#include <fstream>
+#include "smartHash.hpp"    // our lovest lib
 
-```018252895037421319529852122423322587298872249739153721291322100``` (if you select 64 bit hash)
+std::string hashing(std::string filepath) {
+	std::ifstream file(filepath);
+	char buffer[4096];
+	if (file.is_open()) {
+		file.read(buffer,4096);
+		file.close();
+		std::string fileHash = shash(buffer);
+		return fileHash;
+	}
+	else {printf("file cant be readed\n"); return "incorrect";}
+}
+
+int main() {
+    std::string filepath;
+	std::string response;
+	while (true) {
+		printf("file for hashing: ");
+		std::getline(std::cin,filepath);
+		response = hashing(filepath);
+		if (response != "incorrect") {break;}
+	}
+	std::cout << response << "\n";
+    getch();
+    return 0;
+}
+```
+
+Return example: ```6084461197753165478545549237694554940051908446113604285703014507454723455492448600844611360426654721455495472145549244684864224486008440576945547703414507270053308446119775342247614501167069698365446848642244860644224769616365698145074916860644224684208644``` (if you select 256 bit hash)
+
+```9199149420842703119193698197755034942245549244607692840047278644``` (if you select 64 bit hash)
 
 * tested on C++ 13
 
